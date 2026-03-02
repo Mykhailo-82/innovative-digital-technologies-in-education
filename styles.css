@@ -1,0 +1,156 @@
+:root {
+  --color-surface-1: #121212;
+  --color-surface-2: #1e1e1e;
+  --color-surface-3: #2a2a2a;
+  --color-surface-4: #3d3d3d;
+  --color-accent: #0895db;
+
+  --color-text-1: #ffffff;
+  --color-text-2: #e0e0e0;
+  --color-text-3: #b0b0b0;
+  
+  --transition: all 0.3s ease;
+}
+
+body {
+  background-color: var(--color-surface-1);
+
+  font-family: Roboto, sans-serif;
+  color: var(--color-text-2);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  min-height: 100vh;
+
+  margin: 0 auto;
+  padding: 40px;
+
+  background-color: var(--color-surface-2);
+}
+
+.title {
+  margin-bottom: 30px;
+  
+  color: var(--color-text-1);
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.tab {
+  margin-bottom: 15px;
+}
+
+.cover {
+  position: relative;
+  width: 100%;
+  min-height: 70px;
+  border-radius: 12px;
+
+  border: 2px solid var(--color-surface-3);
+  background-color: var(--color-surface-3);
+
+  transition: var(--transition);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+}
+
+.cover:hover {
+  background-color: var(--color-surface-4);
+}
+
+.tab--active .cover {
+  border-color: var(--color-accent);
+  background-color: var(--color-surface-4);
+}
+
+.tab--active .description {
+  max-height: 0;
+
+  padding-bottom: 10px;
+
+  opacity: 1;
+}
+
+.done-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.done-image svg {
+  display: none;
+  width: 60px;
+}
+.done .done-image svg {
+  display: block;
+}
+
+.cover-title {
+  margin-left: 60px;
+
+  color: var(--color-text-1);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.description {
+  width: 92%;
+  max-height: 0;
+  border-radius: 0 0 10px 10px;
+
+  margin: 0 auto;
+  
+  background-color: #252525;
+
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.description-inner {
+  padding: 25px;
+
+  color: var(--color-text-3);
+  font-size: 0.95rem;
+}
+
+.description-link {
+  display: inline-block;
+  border-radius: 8px;
+  
+  padding: 8px 20px;
+  margin-top: 15px;
+  
+  background-color: var(--color-accent);
+  
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  
+  transition: var(--transition);
+}
+
+.description-link.disabled {
+  background-color: var(--color-surface-3);
+
+  color: var(--color-text-4);
+  
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.description-link:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 12px rgba(8, 26, 219, 0.3);
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="reset.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
+
+  <title>Завдання 1</title>
+</head>
+<body>
+  <a-scene>
+    <a-sky color="grey">
+    </a-sky>
+
+    <a-camera position="0 1.6 0">
+    </a-camera>
+
+    <a-torus
+      position="-2 1 -5"
+      color="green"
+      radius="1.2">
+    </a-torus>
+
+    <a-plane 
+      width="7" 
+      height="7" 
+      rotation="-55 0 0"
+      position="0 -2 -5"
+      color="purple"
+    >
+    </a-plane>
+
+    <a-cylinder
+      color="yellow"
+      height="2"
+      radius="0.05"
+      position="-2 -1 -5"
+    >
+    </a-cylinder>
+
+    <a-cylinder
+      color="blue"
+      height="2"
+      radius="0.05"
+      position="-3 -1 -5"
+    >
+    </a-cylinder>
+
+    <a-torus-knot color="orange" radius="1.2" position="-3 1 -5">
+    </a-torus-knot>
+
+    <a-plane width="9" height="2" position="3 1 -9" color="white">
+    </a-plane>
+
+    <a-text 
+      value="Welcome to browser VR!" 
+      color="black"
+      width="10"
+      position="0 1 -6">
+    </a-text>
+
+  </a-scene>
+</body>
+</html>

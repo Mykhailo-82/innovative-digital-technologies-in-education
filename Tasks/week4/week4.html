@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./../../reset.css">
+  <link rel="stylesheet" href="./styles.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/aframe@1.4.2/dist/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+  <title>Завдання 4</title>
+</head>
+<body>
+
+<a-scene
+  embedded
+  vr-mode-ui="enabled: false"
+  arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+>
+
+  <a-marker preset="hiro">
+    <a-entity scale="0.3 0.3 0.3" rotation="-90 0 0">
+
+      <a-torus
+        position="-2 -2 -5"
+        color="green"
+        radius="1.2"
+        animation="property: components.material.material.color;
+                   type: color; from: green; to: red; loop: true; dur: 10000">
+      </a-torus>
+
+      <a-plane
+        width="9"
+        height="2"
+        position="3 1 -9"
+      >
+      </a-plane>
+
+      <a-text
+        value="Hiro"
+        color="black"
+        width="10"
+        position="-0.5 1 -8.5"
+        font="./../../resources/RoadUI-Medium-msdf.json"
+        negate="false"
+      >
+      </a-text>
+
+    </a-entity>
+  </a-marker>
+
+  <a-marker preset="kanji">
+    <a-entity scale="0.3 0.3 0.3" rotation="-90 0 0">
+
+      <a-torus-knot
+        color="orange"
+        radius="1.2"
+        position="0 -2 -5"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+      </a-torus-knot>
+
+      <a-cylinder
+        color="blue"
+        height="2"
+        radius="0.1"
+        position="2 -3 -5">
+      </a-cylinder>
+
+      <a-plane
+        width="9"
+        height="2"
+        position="3 1 -9"
+      >
+      </a-plane>
+
+      <a-text
+        value="Kanji"
+        color="black"
+        width="10"
+        position="-0.5 1 -8.5"
+        font="./../../resources/RoadUI-Medium-msdf.json"
+        negate="false"
+      >
+      </a-text>
+
+    </a-entity>
+  </a-marker>
+
+  
+  <a-marker type="pattern" url="./../../resources/Markers/Smile/smile.patt">
+    <a-entity scale="0.3 0.3 0.3" rotation="-90 0 0">
+
+      <a-plane
+        src="./images/image.png"
+        width="5"
+        height="5"
+        rotation="-55 0 0"
+        position="0 -2 -8">
+      </a-plane>
+
+      <a-plane
+        width="9"
+        height="2"
+        position="3 1 -9"
+      >
+      </a-plane>
+
+      <a-text
+        value="Custom marker"
+        color="black"
+        width="10"
+        position="-0.5 1 -8.5"
+        font="./../../resources/RoadUI-Medium-msdf.json"
+        negate="false"
+      >
+      </a-text>
+
+    </a-entity>
+  </a-marker>
+
+  <a-entity camera></a-entity>
+
+</a-scene>
+
+</body>
+</html>

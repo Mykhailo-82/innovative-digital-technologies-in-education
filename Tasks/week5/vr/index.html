@@ -1,0 +1,37 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="./script.js"></script>
+</head>
+<body>
+  <a-scene>
+    <a-assets>
+      <img id="sky"     src="./../../../resources/textures/solar_system/2k_stars_milky_way.jpg">
+      <img id="sun"     src="./../../../resources/textures/solar_system/2k_sun.jpg">
+      <img id="mercury" src="./../../../resources/textures/solar_system/2k_mercury.jpg">
+      <img id="venus"   src="./../../../resources/textures/solar_system/2k_venus_atmosphere.jpg">
+      <img id="earth"   src="./../../../resources/textures/solar_system/2k_earth_daymap.jpg">
+      <img id="mars"    src="./../../../resources/textures/solar_system/2k_mars.jpg">
+      <img id="jupiter" src="./../../../resources/textures/solar_system/2k_jupiter.jpg">
+      <img id="saturn"  src="./../../../resources/textures/solar_system/2k_saturn.jpg">
+      <img id="uranus"  src="./../../../resources/textures/solar_system/2k_uranus.jpg">
+      <img id="neptune" src="./../../../resources/textures/solar_system/2k_neptune.jpg">
+    </a-assets>
+
+    <a-sky src="#sky" radius="5000"></a-sky>
+    <a-camera position="0 0 600" cursor-visible="true" cursor-scale="2" cursor-color="#0095DD" cursor-opacity="0.5"></a-camera>
+    <a-sphere radius="20.510" src="#sun"     planet="dist: 0; mass: 1.989e30; name: Sun"></a-sphere>
+    <a-sphere radius="2.4397" src="#mercury" planet="dist: 57.910e9; mass: 3.3011e23; T: 88; name: Mercury"></a-sphere>
+    <a-sphere radius="6.0518" src="#venus"   planet="dist: 108.21e9; mass: 4.867e24; T: 224.701; name: Venus"></a-sphere>
+    <a-sphere radius="6.371"  src="#earth"   planet="dist: 149.598e9; mass: 5.972e24; T: 365.256; name: Earth"></a-sphere>
+    <a-sphere radius="3.3895" src="#mars"    planet="dist: 227.9e9; mass: 6.4171e23; T: 687; name: Mars"></a-sphere>
+    <a-sphere radius="69.911" src="#jupiter" planet="dist: 778.5e9; mass: 1.898e27; T: 4333; name: Jupiter"></a-sphere>
+    <a-sphere radius="58.232" src="#saturn"  planet="dist: 1432e9; mass: 5.683e26; T: 10759; name: Saturn"></a-sphere>
+    <a-sphere radius="25.362" src="#uranus"  planet="dist: 2867e9; mass: 8.681e25; T: 30687; name: Uranus"></a-sphere>
+    <a-sphere radius="24.622" src="#neptune" planet="dist: 4515e9; mass: 1.024e26; T: 60190; name: Neptune"></a-sphere>
+    <a-entity main></a-entity>
+
+  </a-scene>
+</body>
+</html>

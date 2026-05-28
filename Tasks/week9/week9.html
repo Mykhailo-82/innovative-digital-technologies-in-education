@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Завдання 9</title>
+  <link rel="stylesheet" href="./styles.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.151.3/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.151.3/examples/jsm/",
+        "mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="start-screen" id="start-screen">
+    <div class="start-card">
+      <h1>Завдання 9</h1>
+      <p>Наведіть камеру на один із маркерів після запуску.</p>
+      <button id="startButton">Запустити AR</button>
+      
+      <div class="markers-preview">
+        <div class="marker-item">
+          <img src="./../../resources/Markers/Video/video.png" alt="Маркер 1 (Відео)">
+        </div>
+        <div class="marker-item">
+          <img src="./../../resources/Markers/World/world.png" alt="Маркер 2 (Модель)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mind-ar-container" id="mind-ar-container"></div>
+  
+  <script src="./main.js" type="module"></script>
+</body>
+</html>

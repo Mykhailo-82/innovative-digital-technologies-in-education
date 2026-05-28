@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <title>Завдання 10</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="video-container">
+    <video id="webcam" autoplay playsinline muted></video>
+    <canvas id="output-canvas"></canvas>
+  </div>
+
+  <div id="stats" class="ar-stats-panel">
+    <div class="ar-stats-panel--waiting">Ініціалізація камери та моделі Handpose...</div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="utf-8">
+  <title>Завдання 12</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <video id="webcam" autoplay playsinline muted></video>
+
+  <div id="stats" class="ar-stats-panel">
+    <div class="ar-stats-section">
+      <div class="ar-stats-title">Квест-навігація</div>
+      <div class="ar-stats-row">
+        <span class="ar-stats-tag">ЛІВОРУЧ</span>
+        <span class="ar-stats-number">Модель 1</span>
+      </div>
+      <div class="ar-stats-row">
+        <span class="ar-stats-tag">ПРАВОРУЧ</span>
+        <span class="ar-stats-number">Модель 2</span>
+      </div>
+    </div>
+    <div class="ar-stats-panel--waiting">Поверніть екран ліворуч або праворуч, щоб знайти об'єкти</div>
+  </div>
+
+  <a-scene embedded vr-mode-ui="enabled: false;" device-orientation-permission-ui="enabled: true;">
+
+    <a-assets>
+      <a-asset-item id="model-left"
+        src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF-Binary/Duck.glb"></a-asset-item>
+      <a-asset-item id="model-right"
+        src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF-Binary/Avocado.glb"></a-asset-item>
+    </a-assets>
+
+    <a-entity gltf-model="#model-left" position="-2 0 -3" scale="1.5 1.5 1.5"
+      animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear">
+    </a-entity>
+
+    <a-entity gltf-model="#model-right" position="2 0 -3" scale="12 12 12"
+      animation="property: rotation; to: 0 360 0; loop: true; dur: 6000; easing: linear">
+    </a-entity>
+
+    <a-entity light="type: ambient; color: #FFF; intensity: 1.5;"></a-entity>
+    <a-entity light="type: directional; color: #FFF; intensity: 0.8;" position="-1 2 1"></a-entity>
+
+    <a-entity camera look-controls></a-entity>
+
+  </a-scene>
+
+  <script>
+    async function initWebcam() {
+      const video = document.getElementById('webcam');
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
+          audio: false
+        });
+        video.srcObject = stream;
+      } catch (err) {
+        console.error("Помилка доступу до камери: ", err);
+      }
+    }
+    window.addEventListener('DOMContentLoaded', initWebcam);
+  </script>
+
+</body>
+
+</html>

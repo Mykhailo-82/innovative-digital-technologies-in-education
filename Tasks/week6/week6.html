@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Завдання 6</title>
+
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="main.js"></script>
+</head>
+
+<body style="margin : 0px; overflow: hidden;">
+  <a-scene embedded vr-mode-ui="enabled: false;"
+    renderer="antialias: true; logarithmicDepthBuffer: true; colorManagement: true;"
+    arjs="debugUIEnabled: false; detectionMode: mono_and_matrix;">
+
+    <a-marker type="pattern" url="../../resources/Markers/Letters/patt.a" id="A" marker-node>
+      <a-sphere radius="0.05" color="red"></a-sphere>
+      <a-text value="A" align="center" position="0 0.1 0" scale="0.5 0.5 0.5"></a-text>
+    </a-marker>
+
+    <a-marker type="pattern" url="../../resources/Markers/Letters/patt.b" id="B" marker-node>
+      <a-sphere radius="0.05" color="green"></a-sphere>
+      <a-text value="B" align="center" position="0 0.1 0" scale="0.5 0.5 0.5"></a-text>
+    </a-marker>
+
+    <a-marker type="pattern" url="../../resources/Markers/Letters/patt.c" id="C" marker-node>
+      <a-sphere radius="0.05" color="blue"></a-sphere>
+      <a-text value="C" align="center" position="0 0.1 0" scale="0.5 0.5 0.5"></a-text>
+    </a-marker>
+
+    <a-marker type="pattern" url="../../resources/Markers/Letters/patt.d" id="D" marker-node>
+      <a-sphere radius="0.05" color="yellow"></a-sphere>
+      <a-text value="D" align="center" position="0 0.1 0" scale="0.5 0.5 0.5"></a-text>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+
+    <a-entity polygon-solver></a-entity>
+
+  </a-scene>
+</body>
+</html>

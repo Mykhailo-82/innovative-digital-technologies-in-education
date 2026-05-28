@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="./styles.css">
+
+  <title>Завдання 11</title>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three":             "https://cdn.jsdelivr.net/npm/three@0.151.3/build/three.module.js",
+      "three/addons/":     "https://cdn.jsdelivr.net/npm/three@0.151.3/examples/jsm/",
+      "mindar-face-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-three.prod.js"
+    }
+  }
+  </script>
+
+</head>
+
+<body>
+
+  <div class="container" id="menu">
+    <div class="half vr" id="vrMode">VR сцена</div>
+    <div class="half ar" id="arMode">AR сцена</div>
+  </div>
+
+  <div id="ar-container">
+    <button id="backButton">Назад</button>
+  </div>
+
+  <script src="./main.js" type="module"></script>
+
+</body>
+</html>

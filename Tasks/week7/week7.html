@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css">
+  <title>Лабораторна 1-3</title>
+
+
+</head>
+
+<body>
+  <div id="mode-screen">
+    <h1>Оберіть режим</h1>
+    <div class="mode-cards">
+
+      <div class="mode-card" id="mode-vr">
+        <div class="mode-title">VR</div>
+      </div>
+
+      <div class="mode-card" id="mode-arjs">
+        <div class="mode-title">AR.JS</div>
+      </div>
+
+      <div class="mode-card" id="mode-mindar">
+        <div class="mode-title">MIND AR</div>
+      </div>
+
+      <div class="mode-card" id="mode-webxr">
+        <div class="mode-title">WEBXR</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="stars"></div>
+  <div id="flash"></div>
+
+  <header>
+    <div id="header-badge" title="Клікни для вибору елемента">
+      <span class="num" id="hdr-num">3</span>
+      <span class="sym" id="hdr-sym">Li</span>
+      <span class="badge-name" id="hdr-badge-name">Літій</span>
+      <span class="mass" id="hdr-mass">6.941</span>
+    </div>
+    <div class="title-block">
+      <h1 id="hdr-title">ЛІТІЙ</h1>
+      <p id="hdr-desc">3 протони · 4 нейтрони · 3 електрони</p>
+    </div>
+  </header>
+
+  <div id="canvas-wrap">
+    <div id="info">
+      <h2>Параметри</h2>
+      <div id="info-content">
+        <div class="row"><span class="label">Атомний номер</span><span class="value" id="inf-z">3</span></div>
+        <div class="row"><span class="label">Протони</span><span class="value" id="inf-p">3</span></div>
+        <div class="row"><span class="label">Нейтрони</span><span class="value" id="inf-n">4</span></div>
+        <div class="row"><span class="label">Електрони</span><span class="value" id="inf-e">3</span></div>
+        <div class="row"><span class="label">Оболонки</span><span class="value" id="inf-sh">2, 1</span></div>
+        <div class="orbit-legend" id="orb-legend"></div>
+      </div>
+      <button id="info-toggle">ЗГОРНУТИ</button>
+    </div>
+
+    <div id="controls">
+      <button class="btn active" id="btn-rotate">ОБЕРТАННЯ</button>
+      <button class="btn" id="btn-wireframe">КАРКАС</button>
+      <button class="btn" id="btn-reset">СКИНУТИ</button>
+      <button class="btn" id="btn-table">ТАБЛИЦЯ ЕЛЕМЕНТІВ</button>
+    </div>
+  </div>
+
+  <div id="overlay">
+    <div id="popup">
+      <div id="popup-header">
+        <h2>ТАБЛИЦЯ МЕНДЕЛЄЄВА</h2>
+        <button id="popup-close">ЗАКРИТИ</button>
+      </div>
+      <div id="elem-search-wrap">
+        <input id="elem-search" type="text" placeholder="Пошук: назва, символ або номер..." autocomplete="off"
+          spellcheck="false">
+      </div>
+      <div id="table-scroll"></div>
+      <div id="cat-legend">
+        <div class="cat-item">
+          <div class="cat-dot" style="background:#ff6b35"></div>Лужні метали
+        </div>
+        <div class="cat-item">
+          <div class="cat-dot" style="background:#ffc832"></div>Лужноземельні
+        </div>
+        <div class="cat-item">
+          <div class="cat-dot" style="background:#a259ff"></div>Перехідні метали
+        </div>
+        <div class="cat-item">
+          <div class="cat-dot" style="background:#00d4ff"></div>Інші
+        </div>
+        <div class="cat-item">
+          <div class="cat-dot" style="background:#00ff99"></div>Благородні гази
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/",
+      "mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+    }
+  }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@ar-js-org/ar.js@3.4.5/three.js/build/ar-threex.js"></script>
+
+  <script src="main.js" type="module"></script>
+
+</body>
+
+</html>

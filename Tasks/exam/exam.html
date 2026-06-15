@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Exam</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/4.17.0/tf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- FIRST SCREEN -->
+<div id="splash">
+  <div class="splash-bg">
+    <div class="splash-orb splash-orb-1"></div>
+    <div class="splash-orb splash-orb-2"></div>
+    <div class="splash-orb splash-orb-3"></div>
+  </div>
+  <div class="splash-content">
+    <div class="splash-logo">AI<span>Builder</span></div>
+    <div class="splash-tagline">Навчайте нейромережі для розпізнавання зображень просто на телефоні</div>
+    <div class="splash-features">
+      <div class="splash-feature">
+        <i class="fas fa-camera"></i>
+        <div class="splash-feature-text"><strong>Збір даних</strong>Створення фото для кожного класу прямо в застосунку</div>
+      </div>
+      <div class="splash-feature">
+        <i class="fas fa-vr-cardboard"></i>
+        <div class="splash-feature-text"><strong>AR/2D режим</strong>Побудова архітектури мережі у просторі</div>
+      </div>
+      <div class="splash-feature">
+        <i class="fas fa-bolt"></i>
+        <div class="splash-feature-text"><strong>Навчання в браузері</strong>TensorFlow.js без серверів і хмарних обчислень</div>
+      </div>
+    </div>
+    <button class="splash-start-btn" id="splashStartBtn">
+      <i class="fas fa-rocket"></i> Почати
+    </button>
+    <div class="splash-hint">Застосунок перейде у повноекранний режим</div>
+  </div>
+</div>
+
+<header>
+  <div class="stage-nav" id="stageNav">
+
+  </div>
+  <button class="fullscreen-btn" id="fsBtn" title="На весь екран"><i class="fas fa-expand"></i></button>
+</header>
+
+<!-- STAGE 1 -->
+<section class="stage active" id="stage1">
+  <div class="s1-header" style="padding:16px 16px 0">
+    <span class="section-title"><i class="fas fa-layer-group" style="margin-right:6px;"></i>Класи зображень</span>
+    <button class="btn btn-ghost" style="font-size:.78rem;padding:7px 13px" onclick="addClass()"><i class="fas fa-plus"></i> Клас</button>
+  </div>
+  <div class="class-list" id="classList" style="padding:12px 16px;"></div>
+  <div class="s1-footer" style="padding:0 16px 16px;">
+    <span id="totalSamples" style="font-size:.78rem;color:var(--text2)">Зразків: 0</span>
+    <button class="btn btn-primary" onclick="goStage(2)"><i class="fas fa-arrow-right"></i> Далі: Архітектура</button>
+  </div>
+</section>
+
+<!-- CAMERA OVERLAY -->
+<div id="cameraOverlay">
+  <video id="camOverlayVideo" autoplay playsinline muted></video>
+  <div class="cam-viewfinder"></div>
+  <div class="cam-overlay-header">
+    <span class="cam-overlay-title" id="camOverlayTitle"><i class="fas fa-camera"></i> Фото</span>
+  </div>
+  <div class="cam-overlay-footer">
+    <button class="cam-back-btn" onclick="closeCameraOverlay()"><i class="fas fa-arrow-left"></i> Назад</button>
+    <button class="shutter-btn" onclick="takePhoto()"><div class="shutter-inner"></div></button>
+    <div style="width:80px"></div>
+  </div>
+  <canvas id="camSnapCanvas" width="256" height="256"></canvas>
+</div>
+
+<!-- STAGE 2 -->
+<section class="stage" id="stage2">
+  <canvas id="arCanvas"></canvas>
+  <canvas id="flatCanvas" style="display:none;"></canvas>
+  <div id="arStartScreen">
+    <div style="font-size:2rem"><i class="fas fa-vr-cardboard"></i></div>
+    <h2>Вибір режиму</h2>
+    <p>Оберіть спосіб візуалізації архітектури нейромережі</p>
+    <div class="xr-buttons">
+      <button class="btn btn-primary" id="arModeBtn"><i class="fas fa-search"></i> AR (Камера)</button>
+      <button class="btn btn-ghost" id="fallbackModeBtn"><i class="fas fa-desktop"></i> 2D перегляд</button>
+    </div>
+    <p style="font-size:.72rem;color:var(--text2);margin-top:6px;">AR: направте камеру на поверхню, торкніться щоб розмістити</p>
+  </div>
+
+  <div id="arPlaceHint">
+    <div class="hint-ring"></div>
+    <div class="hint-text">Скануємо поверхню…</div>
+  </div>
+
+  <div id="arHUD">
+    <div class="hud-chain" id="hudChain"></div>
+    <button class="ar-btn ar-btn-ghost" style="padding:5px 10px;font-size:.7rem;flex-shrink:0;margin-left:8px" onclick="exitXRAndGoStage(3)"><i class="fas fa-play"></i> Навчати</button>
+  </div>
+
+  <div id="arToolbar">
+    <div class="toolbar-label"><i class="fas fa-puzzle-piece"></i> Додати шар</div>
+    <div class="layer-pills">
+      <div class="layer-pill" onclick="addARLayer('Conv2D')"><div class="pill-icon"><i class="fas fa-th"></i></div><div class="pill-name">Conv2D</div><div class="pill-sub">Згортка</div></div>
+      <div class="layer-pill" onclick="addARLayer('MaxPool')"><div class="pill-icon"><i class="fas fa-arrow-down"></i></div><div class="pill-name">MaxPool</div><div class="pill-sub">Пулінг</div></div>
+      <div class="layer-pill" onclick="addARLayer('Flatten')"><div class="pill-icon"><i class="fas fa-arrows-alt-h"></i></div><div class="pill-name">Flatten</div><div class="pill-sub">Розгорнути</div></div>
+      <div class="layer-pill" onclick="addARLayer('Dense')"><div class="pill-icon"><i class="fas fa-circle"></i></div><div class="pill-name">Dense</div><div class="pill-sub">Повнозв'язний</div></div>
+      <div class="layer-pill" onclick="addARLayer('Activation')"><div class="pill-icon"><i class="fas fa-wave-square"></i></div><div class="pill-name">Activation</div><div class="pill-sub">Функція</div></div>
+    </div>
+    <div class="toolbar-actions">
+      <button class="ar-btn ar-btn-danger" onclick="clearARLayers()"><i class="fas fa-times"></i> Очистити</button>
+      <button class="ar-btn ar-btn-ghost" onclick="undoARLayer()"><i class="fas fa-undo"></i> Скасувати</button>
+      <button class="ar-btn ar-btn-primary" onclick="resetARPlacement()"><i class="fas fa-map-pin"></i> Перемістити</button>
+      <button class="ar-btn ar-btn-primary" onclick="exitXRAndGoStage(3)"><i class="fas fa-play"></i> Навчати</button>
+    </div>
+  </div>
+
+  <div id="cardActionPanel">
+    <div class="card-action-title" id="cardActionTitle">Шар</div>
+    <button class="card-action-btn" id="cardMoveLeftBtn" onclick="moveCardLeft()"><i class="fas fa-arrow-left"></i> Перемістити ліворуч</button>
+    <button class="card-action-btn" id="cardMoveRightBtn" onclick="moveCardRight()"><i class="fas fa-arrow-right"></i> Перемістити праворуч</button>
+    <button class="card-action-btn danger" onclick="deleteSelectedCard()"><i class="fas fa-trash-alt"></i> Видалити</button>
+    <button class="card-action-btn" onclick="openARPopup(selectedCardIdx)"><i class="fas fa-cog"></i> Параметри</button>
+    <button class="card-action-btn" onclick="closeCardActionPanel()" style="border-color:transparent;background:transparent;color:var(--text2);justify-content:center;"><i class="fas fa-times"></i> Закрити</button>
+  </div>
+
+  <div id="arPopup">
+    <div class="ar-popup-box">
+      <div class="ar-popup-title"><span id="arPopupIcon"><i class="fas fa-th"></i></span><span id="arPopupTitle" style="margin-left:6px">Conv2D</span><button class="ar-popup-close" onclick="closeARPopup()"><i class="fas fa-times"></i></button></div>
+      <div id="arPopupBody"></div>
+      <div class="popup-actions">
+        <button class="btn btn-ghost" style="font-size:.78rem;padding:7px 14px" onclick="closeARPopup()">Скасувати</button>
+        <button class="btn btn-primary" style="font-size:.78rem;padding:7px 14px" onclick="saveARLayerConfig()"><i class="fas fa-save"></i> Зберегти</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAGE 3 -->
+<section class="stage" id="stage3">
+  <div class="train-card">
+    <div class="train-card-title"><i class="fas fa-bolt"></i> Навчання моделі</div>
+    <div class="train-config">
+      <div class="field"><label>Epochs</label><input type="number" id="cfgEpochs" value="20" min="1" max="200"></div>
+      <div class="field"><label>Batch size</label><input type="number" id="cfgBatch" value="16" min="1" max="256"></div>
+      <div class="field"><label>Learning rate</label><input type="number" id="cfgLR" value="0.001" step="0.0001" min="0.00001"></div>
+      <div class="field"><label>Optimizer</label>
+        <select id="cfgOpt"><option value="adam">Adam</option><option value="sgd">SGD</option><option value="rmsprop">RMSprop</option></select>
+      </div>
+    </div>
+    <div class="train-actions">
+      <button class="btn btn-primary" id="trainBtn" onclick="startTraining()"><i class="fas fa-play"></i> Навчати</button>
+      <button class="btn btn-ghost" id="stopBtn" onclick="stopTraining()" disabled><i class="fas fa-stop"></i> Зупинити</button>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Прогрес</span><span id="epochLabel">—</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="trainProgress"></div></div>
+      <div class="progress-label"><span>Loss</span><span id="lossLabel" style="font-family:var(--mono)">—</span></div>
+      <div class="progress-label"><span>Accuracy</span><span id="accLabel" style="font-family:var(--mono)">—</span></div>
+    </div>
+    <div class="log-box" id="trainLog"></div>
+    <div class="go-infer-wrap">
+      <button class="btn btn-success" id="goInferBtn" onclick="goStage(4)" disabled style="width:100%;justify-content:center;">
+        <i class="fas fa-flask"></i> Перейти до тесту
+      </button>
+    </div>
+    <button class="btn btn-ghost" style="font-size:.75rem;justify-content:center" onclick="goStage(2)"><i class="fas fa-arrow-left"></i> Архітектура</button>
+  </div>
+</section>
+
+<!-- STAGE 4 -->
+<section class="stage" id="stage4">
+  <div class="infer-fullscreen">
+    <video id="inferVideo" autoplay playsinline muted></video>
+    <canvas id="inferCanvas" width="256" height="256"></canvas>
+    <div class="infer-top">
+      <button class="btn btn-ghost" style="font-size:.75rem;padding:6px 12px;color:#fff;border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.08)" onclick="goStage(3)"><i class="fas fa-arrow-left"></i> Назад</button>
+      <span class="infer-cam-status" id="inferCamStatus"><i class="fas fa-video-slash"></i> Камера вимкнена</span>
+    </div>
+    <div class="infer-bottom">
+      <div class="pred-label" id="predLabel">Очікує...</div>
+      <div class="pred-conf" id="predConf"></div>
+      <div class="bars-wrap" id="barsWrap"></div>
+    </div>
+  </div>
+</section>
+
+<!-- <div id="fullscreenPrompt" style="display:none;">
+  <div class="fullscreen-prompt-box">
+    <p><i class="fas fa-expand-arrows-alt"></i> Для продовження потрібно повернутися в повноекранний режим</p>
+    <button id="resumeFullscreenBtn" class="btn btn-primary">Продовжити</button>
+  </div>
+</div> -->
+
+<div class="toast" id="toast"></div>
+
+<!-- <script src="main.js"></script> -->
+<script src="app-state.js"></script>
+<script src="utils.js"></script>
+<script src="./stages/stage1.js"></script>
+<script src="./stages/stage2.js"></script>
+<script src="./stages/stage3.js"></script>
+<script src="./stages/stage4.js"></script>
+</body>
+</html>
